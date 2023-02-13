@@ -1,5 +1,4 @@
 add_subdirectory(JUCE)
-add_subdirectory(qxy-modules)
 
 subproject_version(JUCE juce_version)
 message(STATUS "VERSION for JUCE: ${juce_version}")
@@ -10,7 +9,6 @@ target_link_libraries(juce_plugin_modules
     PRIVATE
         juce::juce_audio_utils
         juce::juce_dsp
-        qxy::qxy_simd
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
