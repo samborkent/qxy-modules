@@ -8,4 +8,5 @@ juce_add_modules(
     ALIAS_NAMESPACE qxy
 
     ${PROJECT_SOURCE_DIR}/modules/qxy_simd
+    ${PROJECT_SOURCE_DIR}/modules/qxy_juce
 )

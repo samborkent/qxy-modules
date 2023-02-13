@@ -3,11 +3,11 @@
 
 BEGIN_JUCE_MODULE_DECLARATION
 
-   ID:            qxy_simd
+   ID:            qxy_juce
    vendor:        Qxy
    version:       0.0.1
-   name:          Qxy SIMD
-   description:   SIMD code
+   name:          Qxy JUCE
+   description:   JUCE function wrappers and extensions
    dependencies:
 
    website:       https://github.com/samborkent/qxy-modules
@@ -20,16 +20,17 @@ BEGIN_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#include <juce_dsp/juce_dsp.h>
+#include <juce_core/juce_core.h>
+#include <juce_audio_processors/juce_audio_processors.h>
 
-#include "simd/qxy_Simd.hpp"
+#include "juce/qxy_Juce.hpp"
 
 namespace qxy
 {
 
-   namespace simd
-   {
+    namespace JUCE
+    {
 
-   } // namespace simd
+    } // namespace JUCE
    
 } // namespace qxy
