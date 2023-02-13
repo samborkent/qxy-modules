@@ -10,5 +10,6 @@ juce_add_modules(
     ${PROJECT_SOURCE_DIR}/modules/qxy_juce
     ${PROJECT_SOURCE_DIR}/modules/qxy_math
     ${PROJECT_SOURCE_DIR}/modules/qxy_param
+    ${PROJECT_SOURCE_DIR}/modules/qxy_processors
     ${PROJECT_SOURCE_DIR}/modules/qxy_simd
 )
