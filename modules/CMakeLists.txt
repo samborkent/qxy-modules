@@ -1,8 +1,5 @@
 add_subdirectory(JUCE)
 
-subproject_version(JUCE juce_version)
-message(STATUS "VERSION for JUCE: ${juce_version}")
-
 include(cmake/WarningFlags.cmake)
 add_library(juce_plugin_modules STATIC)
 target_link_libraries(juce_plugin_modules
@@ -14,8 +11,6 @@ target_link_libraries(juce_plugin_modules
         juce::juce_recommended_lto_flags
         warning_flags
 )
-
-add_diagnostic_info(juce_plugin_modules)
 
 target_include_directories(juce_plugin_modules
     INTERFACE
