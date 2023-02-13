@@ -21,3 +21,13 @@ BEGIN_JUCE_MODULE_DECLARATION
 #include <juce_dsp/juce_dsp.h>
 
 #include "simd/qxy_Simd.hpp"
+
+namespace qxy
+{
+
+namespace simd
+{
+
+} // namespace simd
+   
+} // namespace qxy
