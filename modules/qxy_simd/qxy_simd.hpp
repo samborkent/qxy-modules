@@ -1,3 +1,23 @@
+/*
+==============================================================================
+
+BEGIN_JUCE_MODULE_DECLARATION
+
+   ID:            qxy_simd
+   vendor:        Qxy
+   version:       0.0.1
+   name:          Qxy SIMD
+   description:   SIMD code
+   dependencies:
+
+   website:       https://github.com/samborkent/qxy-modules
+   license:       BSD 3-Clause
+
+   END_JUCE_MODULE_DECLARATION
+
+==============================================================================
+*/
+
 #pragma once
 
 #include <juce_dsp/juce_dsp.h>
@@ -21,56 +41,11 @@ namespace qxy
 
         using Format = juce::AudioData::Format<juce::AudioData::Float32, juce::AudioData::NativeEndian>;
 
-        void prepare (const juce::dsp::ProcessSpec& spec) noexcept
-        {
-            interleavedBlock = juce::dsp::AudioBlock<simd::Type> (interleavedBlockData, 1, spec.maximumBlockSize);
-            zeroBlock = juce::dsp::AudioBlock<float> (zeroBlockData, simd::size, spec.maximumBlockSize);
-            zeroBlock.clear();
-        }
+        void prepare (const juce::dsp::ProcessSpec& spec) noexcept;
 
-        juce::dsp::AudioBlock<simd::Type> interleave (const juce::dsp::AudioBlock<const float>& inBlock) noexcept
-        {
-            const int registerSize = static_cast<int> (simd::size);
+        juce::dsp::AudioBlock<simd::Type> interleave (const juce::dsp::AudioBlock<const float>& inBlock) noexcept;
 
-            std::array<const float*, simd::size> inChannels {};
-
-            for (size_t c = 0; c < inChannels.size(); ++c)
-            {
-                inChannels[c] = (c < inBlock.getNumChannels() ? inBlock.getChannelPointer (c) : zeroBlock.getChannelPointer (c));
-            }
-
-            juce::AudioData::interleaveSamples (
-                juce::AudioData::NonInterleavedSource<Format> {
-                    inChannels.data(),
-                    registerSize },
-                juce::AudioData::InterleavedDest<Format> {
-                    toBasePointer (interleavedBlock.getChannelPointer (0)),
-                    registerSize },
-                static_cast<int> (inBlock.getNumSamples()));
-
-            return interleavedBlock;
-        }
-
-        void deinterleave (juce::dsp::AudioBlock<simd::Type>& _interleavedBlock, juce::dsp::AudioBlock<float>& outBlock) noexcept
-        {
-            const int registerSize = static_cast<int> (simd::size);
-
-            std::array<float*, simd::size> outChannels {};
-
-            for (size_t c = 0; c < outChannels.size(); ++c)
-            {
-                outChannels[c] = (c < outBlock.getNumChannels() ? outBlock.getChannelPointer (c) : zeroBlock.getChannelPointer (c));
-            }
-
-            juce::AudioData::deinterleaveSamples (
-                juce::AudioData::InterleavedSource<Format> {
-                    toBasePointer (_interleavedBlock.getChannelPointer (0)),
-                    registerSize },
-                juce::AudioData::NonInterleavedDest<Format> {
-                    outChannels.data(),
-                    registerSize },
-                static_cast<int> (outBlock.getNumSamples()));
-        }
+        void deinterleave (juce::dsp::AudioBlock<simd::Type>& _interleavedBlock, juce::dsp::AudioBlock<float>& outBlock) noexcept;
 
     private:
         juce::dsp::AudioBlock<simd::Type> interleavedBlock;
