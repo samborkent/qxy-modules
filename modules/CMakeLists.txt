@@ -1,10 +1,7 @@
 add_subdirectory(JUCE)
 
-subproject_version(JUCE juce_version)
-message(STATUS "VERSION for JUCE: ${juce_version}")
-
-add_library(juce_plugin_modules STATIC)
-target_link_libraries(juce_plugin_modules
+add_library(juce_dependencies STATIC)
+target_link_libraries(juce_dependencies
     PRIVATE
         juce::juce_audio_utils
         juce::juce_dsp
@@ -13,12 +10,12 @@ target_link_libraries(juce_plugin_modules
         juce::juce_recommended_lto_flags
 )
 
-target_include_directories(juce_plugin_modules
+target_include_directories(juce_dependencies
     INTERFACE
-        $<TARGET_PROPERTY:juce_plugin_modules,INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:juce_dependencies,INCLUDE_DIRECTORIES>
 )
 
-set_target_properties(juce_plugin_modules PROPERTIES
+set_target_properties(juce_dependencies PROPERTIES
     POSITION_INDEPENDENT_CODE TRUE
     VISIBILITY_INLINES_HIDDEN TRUE
     C_VISBILITY_PRESET hidden
