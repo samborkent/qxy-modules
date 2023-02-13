@@ -7,12 +7,12 @@ namespace qxy
     {
 
         template <typename Type>
-        Type random (Type min, Type max)
+        inline Type random (Type min, Type max)
         {
             return (max - min) * static_cast<Type> (juce::Random::getSystemRandom().nextDouble()) + min;
         }
 
-        float getBpm (juce::AudioProcessor* audioProcessor)
+        inline float getBpm (juce::AudioProcessor* audioProcessor)
         {
             juce::AudioPlayHead* playHead = audioProcessor->getPlayHead();
 
