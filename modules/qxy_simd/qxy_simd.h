@@ -27,9 +27,9 @@ BEGIN_JUCE_MODULE_DECLARATION
 namespace qxy
 {
 
-   namespace simd
-   {
+    namespace simd
+    {
 
-   } // namespace simd
-   
+    } // namespace simd
+
 } // namespace qxy

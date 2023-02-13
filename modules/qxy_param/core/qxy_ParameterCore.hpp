@@ -3,8 +3,8 @@
 namespace qxy
 {
 
-   namespace param
-   {
+    namespace param
+    {
 
         namespace attribute
         {
@@ -68,6 +68,6 @@ namespace qxy
             return std::make_unique<juce::AudioParameterChoice> (param.id, param.name, param.choices, param.init);
         }
 
-   } // namespace param
-   
+    } // namespace param
+
 } // namespace qxy

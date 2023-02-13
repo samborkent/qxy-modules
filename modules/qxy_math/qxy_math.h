@@ -25,9 +25,9 @@ BEGIN_JUCE_MODULE_DECLARATION
 namespace qxy
 {
 
-   namespace math
-   {
+    namespace math
+    {
 
-   } // namespace math
-   
+    } // namespace math
+
 } // namespace qxy

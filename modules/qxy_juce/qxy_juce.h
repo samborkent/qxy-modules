@@ -32,5 +32,5 @@ namespace qxy
     {
 
     } // namespace JUCE
-   
+
 } // namespace qxy

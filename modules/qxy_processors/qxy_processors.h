@@ -27,6 +27,4 @@ BEGIN_JUCE_MODULE_DECLARATION
 namespace qxy
 {
 
-
-   
 } // namespace qxy

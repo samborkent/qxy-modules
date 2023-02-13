@@ -28,14 +28,14 @@ BEGIN_JUCE_MODULE_DECLARATION
 namespace qxy
 {
 
-   namespace param
-   {
+    namespace param
+    {
 
-      namespace attribute
-      {
+        namespace attribute
+        {
 
-      } // namespace attribute
+        } // namespace attribute
 
-   } // namespace param
-   
+    } // namespace param
+
 } // namespace qxy

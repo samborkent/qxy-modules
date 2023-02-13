@@ -42,7 +42,6 @@ namespace qxy
 
     private:
         juce::dsp::DryWetMixer<float> dryWetMixer;
-        
     };
-   
+
 } // namespace qxy
