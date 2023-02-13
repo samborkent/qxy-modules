@@ -7,6 +7,7 @@ add_subdirectory(modules)
 juce_add_modules(
     ALIAS_NAMESPACE qxy
 
-    ${PROJECT_SOURCE_DIR}/modules/qxy_simd
     ${PROJECT_SOURCE_DIR}/modules/qxy_juce
+    ${PROJECT_SOURCE_DIR}/modules/qxy_param
+    ${PROJECT_SOURCE_DIR}/modules/qxy_simd
 )
