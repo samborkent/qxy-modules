@@ -6,6 +6,12 @@ namespace qxy
    namespace param
    {
 
+        namespace attribute
+        {
+            auto dB = juce::AudioParameterFloatAttributes().withStringFromValueFunction ([] (auto x, auto) { return juce::String (0.1f * static_cast<float> (static_cast<int> (x * 10.0f))) + " dB"; });
+            auto percent = juce::AudioParameterFloatAttributes().withStringFromValueFunction ([] (auto x, auto) { return juce::String (static_cast<int> (x * 100.0f)) + "%"; });
+        } // namespace attribute
+
         struct Float
         {
             const juce::String& id;

@@ -31,6 +31,11 @@ namespace qxy
    namespace param
    {
 
+      namespace attribute
+      {
+
+      } // namespace attribute
+
    } // namespace param
    
 } // namespace qxy
