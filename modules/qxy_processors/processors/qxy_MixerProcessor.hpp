@@ -7,6 +7,8 @@ namespace qxy
     class MixerProcessor : public InnerProcessor
     {
     public:
+        Processor() noexcept = default;
+
         void prepare (const juce::dsp::ProcessSpec& spec)
         {
             InnerProcessor::prepare (spec);

@@ -22,7 +22,10 @@ BEGIN_JUCE_MODULE_DECLARATION
 
 #include <juce_dsp/juce_dsp.h>
 
+#include "processors/qxy_EnvelopeFilter.hpp"
+#include "processors/qxy_EnvelopeFollower.hpp"
 #include "processors/qxy_MixerProcessor.hpp"
+#include "processors/qxy_PitchTracker.hpp"
 
 namespace qxy
 {
