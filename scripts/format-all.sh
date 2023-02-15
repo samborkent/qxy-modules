@@ -10,6 +10,7 @@ clang-format -i ../modules/qxy_param/qxy_param.h
 clang-format -i ../modules/qxy_param/core/qxy_ParameterCore.hpp
 
 clang-format -i ../modules/qxy_processors/qxy_processors.h
+clang-format -i ../modules/qxy_processors/processors/qxy_AmplitudeSplitter.hpp
 clang-format -i ../modules/qxy_processors/processors/qxy_EnvelopeFilter.hpp
 clang-format -i ../modules/qxy_processors/processors/qxy_EnvelopeFollower.hpp
 clang-format -i ../modules/qxy_processors/processors/qxy_MixerProcessor.hpp
