@@ -20,13 +20,23 @@ BEGIN_JUCE_MODULE_DECLARATION
 
 #pragma once
 
+#include <array>
+#include <cmath>
+#include <string>
+
 #include "math/qxy_Math.hpp"
+#include "math/qxy_TransitionFunctions.hpp"
 
 namespace qxy
 {
 
     namespace math
     {
+
+        namespace transition
+        {
+
+        } // namespace transition
 
     } // namespace math
 
