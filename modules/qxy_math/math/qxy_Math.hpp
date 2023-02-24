@@ -23,8 +23,8 @@ namespace qxy
             {
                 do
                 {
-                    w1 = qxy::juce::random (Type (-1), Type (1));
-                    w2 = qxy::juce::random (Type (-1), Type (1));
+                    w1 = qxy::JUCE::random (Type (-1), Type (1));
+                    w2 = qxy::JUCE::random (Type (-1), Type (1));
                     r = w1 * w1 + w2 * w2;
                 } while (r >= Type (1));
 

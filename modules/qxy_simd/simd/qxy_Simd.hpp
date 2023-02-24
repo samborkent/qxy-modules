@@ -5,24 +5,27 @@ namespace qxy
 
     namespace simd
     {
-        using Type = juce::dsp::SIMDRegister<float>;
-        constexpr size_t size = Type::size();
+        template <typename Float>
+        using Type = juce::dsp::SIMDRegister<Float>;
 
-        inline Type sgn (Type x) noexcept
+        template <typename Float>
+        inline Type<Float> sgn (Type<Float> x) noexcept
         {
-            const Type zero = juce::dsp::SIMDRegister (0.0f);
+            const auto zero = juce::dsp::SIMDRegister (Float (0));
 
-            return (x & Type::greaterThan (x, zero)) - (x & Type::lessThan (x, zero));
+            return (x & Register::greaterThan (x, zero)) - (x & Register::lessThan (x, zero));
         }
 
-        inline Type round (Type x) noexcept
+        template <typename Float>
+        inline Type<Float> round (Type<Float> x) noexcept
         {
-            const Type half = juce::dsp::SIMDRegister (0.5f);
+            const auto half = juce::dsp::SIMDRegister (Float (0));
 
-            return Type::truncate (Type::abs (x) + half) * sgn (x);
+            return Register::truncate (Register::abs (x) + half) * qxy::simd::sgn (x);
         }
     }
 
+    template <typename Float>
     class Simd
     {
     public:
@@ -32,16 +35,14 @@ namespace qxy
 
         void prepare (const juce::dsp::ProcessSpec& spec) noexcept
         {
-            interleavedBlock = juce::dsp::AudioBlock<simd::Type> (interleavedBlockData, 1, spec.maximumBlockSize);
-            zeroBlock = juce::dsp::AudioBlock<float> (zeroBlockData, simd::size, spec.maximumBlockSize);
+            interleavedBlock = juce::dsp::AudioBlock<simd::Type<Float>> (interleavedBlockData, 1, spec.maximumBlockSize);
+            zeroBlock = juce::dsp::AudioBlock<Float> (zeroBlockData, registerSize, spec.maximumBlockSize);
             zeroBlock.clear();
         }
 
-        juce::dsp::AudioBlock<simd::Type> interleave (const juce::dsp::AudioBlock<const float>& inBlock) noexcept
+        juce::dsp::AudioBlock<simd::Type<Float>> interleave (const juce::dsp::AudioBlock<const Float>& inBlock) noexcept
         {
-            const int registerSize = static_cast<int> (simd::size);
-
-            std::array<const float*, simd::size> inChannels {};
+            std::array<const Float*, registerSize> inChannels {};
 
             for (size_t c = 0; c < inChannels.size(); ++c)
             {
@@ -49,22 +50,20 @@ namespace qxy
             }
 
             juce::AudioData::interleaveSamples (
-                juce::AudioData::NonInterleavedSource<Format> {
-                    inChannels.data(),
-                    registerSize },
-                juce::AudioData::InterleavedDest<Format> {
-                    toBasePointer (interleavedBlock.getChannelPointer (0)),
-                    registerSize },
-                static_cast<int> (inBlock.getNumSamples()));
-
+                    juce::AudioData::NonInterleavedSource<Format> {
+                        inChannels.data(),
+                        registerSize },
+                    juce::AudioData::InterleavedDest<Format> {
+                        toBasePointer (interleavedBlock.getChannelPointer (0)),
+                        registerSize },
+                    static_cast<int> (inBlock.getNumSamples()));
+            
             return interleavedBlock;
         }
 
-        void deinterleave (juce::dsp::AudioBlock<simd::Type>& _interleavedBlock, juce::dsp::AudioBlock<float>& outBlock) noexcept
+        void deinterleave (juce::dsp::AudioBlock<simd::Type<Float>>& _interleavedBlock, juce::dsp::AudioBlock<Float>& outBlock) noexcept
         {
-            const int registerSize = static_cast<int> (simd::size);
-
-            std::array<float*, simd::size> outChannels {};
+            std::array<Float*, registerSize> outChannels {};
 
             for (size_t c = 0; c < outChannels.size(); ++c)
             {
@@ -82,13 +81,15 @@ namespace qxy
         }
 
     private:
-        juce::dsp::AudioBlock<simd::Type> interleavedBlock;
-        juce::dsp::AudioBlock<float> zeroBlock;
+        constexpr registerSize = simd::Type<Float>::size();
+
+        juce::dsp::AudioBlock<simd::Type<Float>> interleavedBlock;
+        juce::dsp::AudioBlock<Float> zeroBlock;
         juce::HeapBlock<char> interleavedBlockData, zeroBlockData;
 
-        static float* toBasePointer (simd::Type* _register) noexcept
+        static Float* toBasePointer (simd::Type<Float>* _register) noexcept
         {
-            return reinterpret_cast<float*> (_register);
+            return reinterpret_cast<Float*> (_register);
         }
     };
 

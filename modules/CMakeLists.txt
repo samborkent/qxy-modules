@@ -1,5 +1,7 @@
 add_subdirectory(JUCE)
 
+find_package(mdspan CONFIG REQUIRED)
+
 include(cmake/WarningFlags.cmake)
 add_library(juce_plugin_modules STATIC)
 target_link_libraries(juce_plugin_modules
@@ -8,6 +10,7 @@ target_link_libraries(juce_plugin_modules
         juce::juce_audio_utils
         juce::juce_core
         juce::juce_dsp
+        std::mdspan
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags

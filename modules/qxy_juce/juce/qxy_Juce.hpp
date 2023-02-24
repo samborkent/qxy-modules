@@ -16,14 +16,7 @@ namespace qxy
         {
             juce::AudioPlayHead* playHead = audioProcessor->getPlayHead();
 
-            if (playHead->getPosition()->getBpm().hasValue())
-            {
-                return static_cast<float> (*playHead->getPosition()->getBpm());
-            }
-            else
-            {
-                return -120.0f;
-            }
+            return playHead->getPosition()->getBpm().hasValue() ? static_cast<float> (*playHead->getPosition()->getBpm()) : -120.0f;
         }
 
     } // namespace JUCE

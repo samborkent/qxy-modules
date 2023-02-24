@@ -60,6 +60,8 @@ namespace qxy
             }
         }
 
+        juce::dsp::ProcessChain
+
         void setSplitType (const SplitType _splitType) noexcept
         {
             splitType = _splitType;
@@ -191,6 +193,24 @@ namespace qxy
 
             return splitSample;
         }
+    };
+
+    template <typename Type>
+    class AmplitudeRecombiner
+    {
+    public:
+        AmplitudeRecombiner() noexcept = default;
+
+        void process (juce::dsp::ProcessContextNonReplacing<Type> context) noexcept
+        {
+            auto inBlock = context.getInputBlock();
+            auto outBlock = context.getInputBlock();
+
+            jassert (inBlock.getNumChannels() == 2);
+            jassert (outBlock.getNumChannels() >= 4);
+        }
+
+    private:
     };
 
 } // namespace qxy

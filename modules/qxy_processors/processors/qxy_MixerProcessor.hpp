@@ -16,11 +16,6 @@ namespace qxy
         }
 
         template <class ProcessContext>
-        void process (const ProcessContext& context)
-        {
-        }
-
-        template <class ProcessContext>
         void mixWetSamples (const ProcessContext& context)
         {
             dryWetMixer.mixWetSamples (context.getOutputBlock());
