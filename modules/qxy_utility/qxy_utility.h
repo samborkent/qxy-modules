@@ -20,8 +20,6 @@ BEGIN_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#include <mdspan>
-
 #include "utility/qxy_AudioBlock.hpp"
 
 namespace qxy

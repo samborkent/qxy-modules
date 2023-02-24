@@ -2,6 +2,3 @@
 	path = modules/JUCE
 	url = https://github.com/juce-framework/JUCE.git
 	branch = develop
-[submodule "modules/vcpkg"]
-	path = modules/vcpkg
-	url = https://github.com/Microsoft/vcpkg.git
