@@ -34,7 +34,7 @@ namespace qxy
 
         void update (const float sample) noexcept
         {
-            const float filteredInput = lpFilter->apply (std::abs (sample), prevSample);
+            const float filteredInput = lpFilter->processSample (std::abs (sample));
 
             if (filteredInput > envelope)
             {
