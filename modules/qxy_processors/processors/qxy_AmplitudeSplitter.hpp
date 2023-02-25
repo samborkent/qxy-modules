@@ -60,8 +60,6 @@ namespace qxy
             }
         }
 
-        juce::dsp::ProcessChain
-
         void setSplitType (const SplitType _splitType) noexcept
         {
             splitType = _splitType;
@@ -84,7 +82,7 @@ namespace qxy
         std::array<Type, 2> hardSplit (const Type sample, const Type threshold) noexcept
         {
             if (threshold <= 0.0f)
-                return std::pair<Type (0), sample>;
+                return std::array<Type, 2> (Type(0), sample);
 
             std::array<Type, 2> splitSample = { Type (0) };
 
@@ -122,7 +120,7 @@ namespace qxy
                 const Type factor = start * end / (end - start);
                 const Type sgnSample = qxy::math::sgn (sample);
                 splitSample[Amp::quiet] = ((start / (start - end)) * absSample + factor) * sgnSample;
-                splitSample[Amd::loud] = ((end / (end - start)) * absSample - factor) * sgnSample;
+                splitSample[Amp::loud] = ((end / (end - start)) * absSample - factor) * sgnSample;
             }
 
             return splitSample;
@@ -155,7 +153,7 @@ namespace qxy
             {
                 const Type factor = qxy::math::transition::firstOrder (absSample, threshold, halfWidth);
                 splitSample[Amp::quiet] = factor * sample;
-                splitSample[Amd::loud] = (Type (1) - factor) * sample;
+                splitSample[Amp::loud] = (Type (1) - factor) * sample;
             }
 
             return splitSample;
@@ -188,7 +186,7 @@ namespace qxy
             {
                 const Type factor = qxy::math::transition::secondOrder (absSample, threshold, halfWidth);
                 splitSample[Amp::quiet] = factor * sample;
-                splitSample[Amd::loud] = (Type (1) - factor) * sample;
+                splitSample[Amp::loud] = (Type (1) - factor) * sample;
             }
 
             return splitSample;
