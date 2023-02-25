@@ -7,12 +7,20 @@ namespace qxy
     class MixerProcessor : public InnerProcessor
     {
     public:
-        Processor() : InnerProcessor() {};
-
         void prepare (const juce::dsp::ProcessSpec& spec)
         {
             InnerProcessor::prepare (spec);
             dryWetMixer.prepare (spec);
+        }
+
+        template <class ProcessContext>
+        void process (const ProcessContext& context)
+        {
+            dryWetMixer.pushDrySamples (context.getInputBlock());
+
+            InnerProcessor::process (context);
+
+            dryWetMixer.mixWetSamples (context.getOutputBlock());
         }
 
         template <class ProcessContext>
