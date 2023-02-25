@@ -81,7 +81,7 @@ namespace qxy
         }
 
     private:
-        static size_t registerSize = simd::Type<Float>::size();
+        static constexpr size_t registerSize = simd::Type<Float>::size();
 
         juce::dsp::AudioBlock<simd::Type<Float>> interleavedBlock;
         juce::dsp::AudioBlock<Float> zeroBlock;
