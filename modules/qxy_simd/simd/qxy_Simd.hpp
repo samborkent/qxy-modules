@@ -31,6 +31,8 @@ namespace qxy
     public:
         Simd() noexcept = default;
 
+        static constexpr size_t registerSize = simd::Type<Float>::size();
+
         using Format = juce::AudioData::Format<juce::AudioData::Float32, juce::AudioData::NativeEndian>;
 
         void prepare (const juce::dsp::ProcessSpec& spec) noexcept
@@ -81,8 +83,6 @@ namespace qxy
         }
 
     private:
-        static constexpr size_t registerSize = simd::Type<Float>::size();
-
         juce::dsp::AudioBlock<simd::Type<Float>> interleavedBlock;
         juce::dsp::AudioBlock<Float> zeroBlock;
         juce::HeapBlock<char> interleavedBlockData, zeroBlockData;
