@@ -13,7 +13,7 @@ namespace qxy
         {
             const auto zero = juce::dsp::SIMDRegister (Float (0));
 
-            return (x & Register::greaterThan (x, zero)) - (x & Register::lessThan (x, zero));
+            return (x & Type<Float>::greaterThan (x, zero)) - (x & Type<Float>::lessThan (x, zero));
         }
 
         template <typename Float>
@@ -21,7 +21,7 @@ namespace qxy
         {
             const auto half = juce::dsp::SIMDRegister (Float (0));
 
-            return Register::truncate (Register::abs (x) + half) * qxy::simd::sgn (x);
+            return Type<Float>::truncate (Type<Float>::abs (x) + half) * qxy::simd::sgn (x);
         }
     }
 
@@ -44,7 +44,7 @@ namespace qxy
         {
             std::array<const Float*, registerSize> inChannels {};
 
-            for (size_t c = 0; c < inChannels.size(); ++c)
+            for (size_t c = 0; c < registerSize; ++c)
             {
                 inChannels[c] = (c < inBlock.getNumChannels() ? inBlock.getChannelPointer (c) : zeroBlock.getChannelPointer (c));
             }
@@ -65,7 +65,7 @@ namespace qxy
         {
             std::array<Float*, registerSize> outChannels {};
 
-            for (size_t c = 0; c < outChannels.size(); ++c)
+            for (size_t c = 0; c < registerSize; ++c)
             {
                 outChannels[c] = (c < outBlock.getNumChannels() ? outBlock.getChannelPointer (c) : zeroBlock.getChannelPointer (c));
             }
@@ -81,7 +81,7 @@ namespace qxy
         }
 
     private:
-        constexpr registerSize = simd::Type<Float>::size();
+        constexpr size_t registerSize = simd::Type<Float>::size();
 
         juce::dsp::AudioBlock<simd::Type<Float>> interleavedBlock;
         juce::dsp::AudioBlock<Float> zeroBlock;

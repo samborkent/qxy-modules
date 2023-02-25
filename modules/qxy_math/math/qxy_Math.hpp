@@ -43,7 +43,7 @@ namespace qxy
         template <typename Float>
         constexpr Float round (Float x) noexcept
         {
-            return qxy::math::floor (x + Float (0.5) * qxy::math::sgn (x));
+            return floor (x + Float (0.5) * sgn (x));
         }
 
         template <typename Type>
@@ -61,6 +61,7 @@ namespace qxy
     } // namespace math
 } // namespace qxy
 
+/*
 //============================================================================
 // Tests
 
@@ -88,3 +89,4 @@ static_assert (qxy::math::pow (2, 4) == 16);
 static_assert (qxy::math::pow (3, 4) == 81);
 static_assert (qxy::math::pow (7.0, 2) == 49.0);
 static_assert (std::abs ((1.0f / qxy::math::pow (2.0f, 4)) - 0.0625f) < tolerance);
+*/

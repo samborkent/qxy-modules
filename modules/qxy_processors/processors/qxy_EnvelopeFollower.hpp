@@ -62,7 +62,7 @@ namespace qxy
         }
 
     private:
-        std::unique_ptr<EnvelopeFilter> lpFilter = std::make_unique<EnvelopeFilter>();
+        std::unique_ptr<EnvelopeFilter<float>> lpFilter = std::make_unique<EnvelopeFilter<float>>();
 
         float fs = 44100.0f;
         float bpm = 120.0f;
